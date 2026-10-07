@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SCENES THAT REMAIN</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<style>
+:root{--bg:#0d0d0c;--bg2:#171715;--ink:#eee8da;--mute:#8d887c;--line:#2c2b27;--acc:#d8cdb4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root:not([data-theme="light"]){color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font:300 15px/1.7 'Noto Sans KR',system-ui,sans-serif;overflow-x:hidden}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.07;z-index:99;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence baseFrequency='.9' numOctaves='2'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>")}
+.d{font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:.04em;font-weight:400;line-height:.92}
+button{font:inherit;color:inherit;background:none;border:1px solid var(--ink);padding:.8em 1.6em;letter-spacing:.2em;font-size:12px;cursor:pointer;transition:.3s}
+button:hover{background:var(--ink);color:var(--bg)}
+button:disabled{opacity:.3;cursor:not-allowed}
+button.ghost{border-color:var(--line)}
+nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:18px 4vw;transition:.4s;gap:14px}
+nav.s{background:rgba(13,13,12,.92);border-bottom:1px solid var(--line)}
+nav .logo{font-size:20px;cursor:pointer}
+nav ul{display:flex;gap:26px;list-style:none;padding:0;font-size:11px;letter-spacing:.22em}
+nav li{cursor:pointer;color:var(--mute);transition:.3s}nav li:hover,nav li.on{color:var(--ink)}
+#sr{background:none;border:0;border-bottom:1px solid var(--line);color:var(--ink);width:110px;font:inherit;font-size:11px;padding:4px 0;letter-spacing:.15em}
+#ham{display:none;padding:.4em .8em}
+#who{font-size:11px;letter-spacing:.15em;color:var(--mute);cursor:pointer;white-space:nowrap}
+#who:hover{color:var(--ink)}
+main{min-height:100vh;animation:dis .9s ease}
+@keyframes dis{from{opacity:0;filter:blur(8px) brightness(2)}to{opacity:1;filter:none}}
+section{padding:120px 6vw 60px;max-width:1300px;margin:auto}
+h1.d{font-size:clamp(64px,13vw,190px)}h2.d{font-size:clamp(44px,7vw,96px);margin-bottom:.3em}
+.sub{color:var(--mute);letter-spacing:.2em;font-size:11px;margin-bottom:28px}
+.still{position:relative;overflow:hidden;background:var(--c)}
+.still:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at var(--x,30%) var(--y,40%),var(--g),transparent 60%),linear-gradient(180deg,transparent 40%,rgba(0,0,0,.65))}
+.still i{position:absolute;left:0;right:0;height:9%;background:#000}.still i:first-child{top:0}.still i:last-child{bottom:0}
+.cap{position:absolute;left:14px;bottom:12px;right:14px;opacity:0;transform:translateY(8px);transition:.4s;font-size:11px;letter-spacing:.18em}
+.card:hover .cap{opacity:1;transform:none}
+.card{cursor:pointer}.card .still{transition:.6s}.card:hover .still{filter:brightness(1.25)}
+.hero{height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 6vw;position:relative;overflow:hidden}
+.hero .bg{position:absolute;inset:-10%;background:radial-gradient(ellipse at 70% 45%,#5b2a24 0,transparent 45%),radial-gradient(ellipse at 20% 80%,#2a3138,transparent 50%);opacity:.65;transition:transform .2s}
+.hero>*{position:relative}
+.strip{position:absolute;right:5vw;top:0;bottom:0;width:70px;display:flex;flex-direction:column;gap:10px;animation:roll 18s linear infinite;opacity:.5}
+.strip div{flex:0 0 90px;border:1px solid var(--line);background:var(--bg2)}
+@keyframes roll{to{transform:translateY(-200px)}}
+.hero p.t{margin:26px 0 34px;font-size:clamp(16px,2vw,22px)}
+.g{display:grid;gap:26px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.g .still{aspect-ratio:2/3}.sg .still{aspect-ratio:16/10}
+.m{color:var(--mute);font-size:12px;letter-spacing:.08em;margin-top:10px}
+.fade{opacity:0;transform:translateY(24px);transition:1s}.fade.in{opacity:1;transform:none}
+.tag{color:var(--acc);font-size:12px;margin-right:8px}
+.act{display:flex;gap:18px;font-size:11px;letter-spacing:.15em;color:var(--mute);margin-top:12px}.act span{cursor:pointer}.act span:hover,.act .on{color:var(--ink)}
+.q{font-size:16px;margin:8px 0;color:var(--ink)}
+.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:50px 0}
+.flow b{font-weight:400;font-size:clamp(22px,3vw,38px)}.flow em{color:var(--mute);font-style:normal}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.pl{list-style:none;padding:0}.pl li{border-bottom:1px solid var(--line);padding:12px 0;display:flex;justify-content:space-between}
+.pl li:hover{color:var(--acc)}
+.chip{display:inline-block;border:1px solid var(--line);padding:6px 16px;margin:0 8px 8px 0;font-size:13px;cursor:pointer}.chip:hover{border-color:var(--ink)}
+.person{border:1px solid var(--line);padding:22px}
+.av{width:56px;height:56px;border-radius:50%;background:var(--c);margin-bottom:12px;border:1px solid var(--line)}
+.bar{height:1px;background:var(--line);margin:10px 0}.bar i{display:block;height:1px;background:var(--ink)}
+.seats{display:grid;grid-template-columns:repeat(4,44px);gap:10px;margin:22px 0;justify-content:start}
+.seat{height:38px;border:1px solid var(--mute);border-radius:8px 8px 3px 3px;font-size:10px;display:grid;place-items:center;cursor:pointer;transition:.2s}
+.seat:hover{border-color:var(--ink)}.seat.x{opacity:.2;cursor:not-allowed;background:var(--line)}.seat.sel{background:var(--ink);color:var(--bg)}
+.screen{width:210px;height:3px;background:var(--ink);box-shadow:0 8px 30px var(--acc);margin:0 0 6px}
+.ticket{background:var(--ink);color:#111;padding:28px;max-width:340px;position:relative;animation:tk 1s cubic-bezier(.2,.9,.3,1);border-radius:4px}
+.ticket:before,.ticket:after{content:"";position:absolute;left:-10px;top:62%;width:20px;height:20px;border-radius:50%;background:var(--bg)}.ticket:after{left:auto;right:-10px}
+.ticket hr{border:0;border-top:2px dashed #999;margin:18px 0}
+@keyframes tk{from{transform:translateY(-120%) rotate(-6deg);opacity:0}}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:80;display:none;padding:5vw;overflow:auto}
+#ov.on{display:block}#ov .row{max-width:1200px;margin:40px auto 0}
+.boot{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center}
+.boot .sub{margin:0}
+.err{max-width:480px;text-align:center;line-height:1.8}
+.auth-wrap{max-width:380px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:11px;letter-spacing:.15em;color:var(--mute);margin-bottom:8px}
+.field input{width:100%;background:none;border:1px solid var(--line);color:var(--ink);font:inherit;padding:12px 14px;font-size:14px}
+.field input:focus{outline:none;border-color:var(--ink)}
+.tabs{display:flex;gap:0;margin-bottom:32px;border-bottom:1px solid var(--line)}
+.tabs span{padding:10px 0;margin-right:26px;cursor:pointer;color:var(--mute);font-size:12px;letter-spacing:.2em;border-bottom:2px solid transparent}
+.tabs span.on{color:var(--ink);border-color:var(--ink)}
+#au-msg{min-height:1.6em;font-size:13px;margin-top:6px;color:var(--mute)}
+footer{padding:80px 6vw;border-top:1px solid var(--line);text-align:center;color:var(--mute);font-size:12px;letter-spacing:.2em}
+@media(max-width:820px){nav ul{position:fixed;top:60px;left:0;right:0;background:var(--bg);flex-direction:column;padding:24px 6vw;display:none;gap:18px;font-size:14px}nav ul.o{display:flex}#ham{display:block}#sr{width:70px}.row{grid-template-columns:1fr;gap:24px}.strip{display:none}}
+</style></head><body>
+<nav id="nav"><div class="logo d" onclick="go('home')">SCENES THAT REMAIN</div>
+<ul id="ul"></ul><div style="display:flex;gap:14px;align-items:center"><input id="sr" placeholder="SEARCH" onkeydown="if(event.key=='Enter')go('search')"><span id="who"></span><button id="ham" onclick="ul.classList.toggle('o')">MENU</button></div></nav>
+<main id="app"><div class="boot"><div class="sub">CONNECTING TO SUPABASE…</div></div></main>
+<div id="ov"></div>
+<footer>SCENES THAT REMAIN · 영화는 끝나도, 이야기는 끝나지 않는다.</footer>
+<script>
+const $=s=>document.querySelector(s),app=$('#app'),ul=$('#ul'),ov=$('#ov'),who=$('#who');
+
+// ── SUPABASE CONNECTION ────────────────────────────────────────────
+const SUPABASE_URL='https://ylhdsyujchidyvnoccrd.supabase.co';
+const SUPABASE_KEY='sb_publishable_VwQJYA9pOUaKw3_ue7R9iw_FDB43zz4';
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+// ── LIVE STATE ───────────────────────────────────────────────────────
+let F=[],S=[],P=[],TRACKS=[],PLAYLISTS=[],CLUB=null,PROGRAM=[],SEATS=[],COMMENTS={};
+let LIKES_ALL=[],SAVES_ALL=[],FOLLOWS_ALL=[],FAVS_ALL=[],RESV_ALL=[],PROFILES_ALL=[];
+let profileById={},filmIdxById={},currentUser=null;
+let liked=new Set(),saved=new Set(),following=new Set();
+let pick=null,ticket=null,film=0,cur='home',bootError=null,authTab='signup';
+
+const M=[['Home','home'],['Films','films'],['Scenes','scenes'],['Soundtrack','sound'],['People','people'],['Monthly Club','club'],['My Page','my']];
+ul.innerHTML=M.map(m=>`<li data-r="${m[1]}" onclick="go('${m[1]}')">${m[0].toUpperCase()}</li>`).join('');
+
+function hashPct(str,min,max){let h=0;for(const c of str)h=(h*31+c.charCodeAt(0))>>>0;return (min+(h%(max-min)))+'%';}
+function requireAuth(){if(!currentUser){go('auth');return false}return true}
+
+// ── BOOT: load public data once, then derive per-session state ─────
+async function boot(){
+  try{
+    const [films,scenes,tags,likes,saves,profiles,favs,follows,tracks,playlists,comments,clubs]=await Promise.all([
+      sb.from('films').select('*').order('created_at'),
+      sb.from('scenes').select('*').order('scene_number',{ascending:false}),
+      sb.from('scene_tags').select('*'),
+      sb.from('scene_likes').select('*'),
+      sb.from('scene_saves').select('*'),
+      sb.from('profiles').select('*'),
+      sb.from('favorite_films').select('*'),
+      sb.from('follows').select('*'),
+      sb.from('tracks').select('*'),
+      sb.from('playlists').select('*'),
+      sb.from('scene_comments').select('*'),
+      sb.from('clubs').select('*').order('club_number',{ascending:false}).limit(1),
+    ]);
+    for(const r of [films,scenes,tags,likes,saves,profiles,favs,follows,tracks,playlists,comments,clubs]) if(r.error) throw r.error;
+
+    PROFILES_ALL=profiles.data;profiles.data.forEach(p=>profileById[p.id]=p);
+    LIKES_ALL=likes.data;SAVES_ALL=saves.data;FOLLOWS_ALL=follows.data;FAVS_ALL=favs.data;
+
+    F=films.data.map((f,i)=>{filmIdxById[f.id]=i;return{id:f.id,t:f.title,d:f.director,y:f.release_year,c:f.country,g:f.genre,col:f.poster_color,gl:f.accent_color,x:hashPct(f.id,25,70),y2:hashPct(f.title,35,70),info:f.synopsis,n:0};});
+
+    const likeCount={},saveCount={},tagsOf={},commentsOf={};
+    LIKES_ALL.forEach(l=>likeCount[l.scene_id]=(likeCount[l.scene_id]||0)+1);
+    SAVES_ALL.forEach(s=>saveCount[s.scene_id]=(saveCount[s.scene_id]||0)+1);
+    tags.data.forEach(t=>(tagsOf[t.scene_id]=tagsOf[t.scene_id]||[]).push(t.tag));
+    comments.data.forEach(c=>(commentsOf[c.scene_id]=commentsOf[c.scene_id]||[]).push(c));
+    COMMENTS=commentsOf;
+
+    S=scenes.data.map(s=>({id:s.id,n:s.scene_number,f:filmIdxById[s.film_id],ts:s.timestamp_in_film,u:(profileById[s.user_id]||{}).username||'unknown',q:s.comment,tags:tagsOf[s.id]||[],l:likeCount[s.id]||0,saveCount:saveCount[s.id]||0}));
+    S.forEach(s=>{if(s.f!=null)F[s.f].n++});
+
+    TRACKS=tracks.data;PLAYLISTS=playlists.data;
+
+    if(clubs.data[0]){
+      const club=clubs.data[0];
+      const [prog,seats,resv]=await Promise.all([
+        sb.from('club_program_items').select('*').eq('club_id',club.id).order('sort_order'),
+        sb.from('club_seats').select('*').eq('club_id',club.id).order('seat_label'),
+        sb.from('reservations').select('*').eq('club_id',club.id),
+      ]);
+      if(prog.error||seats.error||resv.error) throw(prog.error||seats.error||resv.error);
+      CLUB=club;PROGRAM=prog.data;SEATS=seats.data;RESV_ALL=resv.data;
+    }
+
+    const{data:{session}}=await sb.auth.getSession();
+    await deriveForUser(session);
+
+    sb.auth.onAuthStateChange(async(_event,session)=>{await deriveForUser(session);render()});
+  }catch(err){
+    console.error(err);bootError=err.message||String(err);
+  }
+  render();
+}
+
+// ── Recompute everything that depends on who is logged in ──────────
+async function deriveForUser(session){
+  if(!session){currentUser=null;liked=new Set();saved=new Set();following=new Set();ticket=null;buildPeople();return}
+  let prof=PROFILES_ALL.find(p=>p.id===session.user.id);
+  if(!prof){
+    const{data,error}=await sb.from('profiles').select('*').eq('id',session.user.id).maybeSingle();
+    if(error)console.error(error);
+    prof=data;
+  }
+  if(!prof){
+    const fallback=(session.user.email||'user').split('@')[0]+'_'+session.user.id.slice(0,4);
+    const{data,error}=await sb.from('profiles').insert({id:session.user.id,username:fallback}).select().single();
+    if(error){console.error(error);return}
+    prof=data;
+  }
+  profileById[prof.id]=prof;
+  if(!PROFILES_ALL.find(p=>p.id===prof.id))PROFILES_ALL.push(prof);
+  currentUser=prof;
+  liked=new Set(LIKES_ALL.filter(l=>l.user_id===currentUser.id).map(l=>l.scene_id));
+  saved=new Set(SAVES_ALL.filter(s=>s.user_id===currentUser.id).map(s=>s.scene_id));
+  following=new Set(FOLLOWS_ALL.filter(f=>f.follower_id===currentUser.id).map(f=>f.followee_id));
+  const mine=RESV_ALL.find(r=>r.user_id===currentUser.id);
+  ticket=mine?{seatLabel:(SEATS.find(se=>se.id===mine.seat_id)||{}).seat_label||'?',code:mine.ticket_code}:null;
+  buildPeople();
+}
+function buildPeople(){
+  const favByUser={};FAVS_ALL.forEach(x=>(favByUser[x.user_id]=favByUser[x.user_id]||[]).push(x.film_id));
+  const myFavIds=currentUser?(favByUser[currentUser.id]||[]):[];
+  P=PROFILES_ALL.filter(p=>!currentUser||p.id!==currentUser.id).map(p=>{
+    const favIds=favByUser[p.id]||[];
+    const favFilms=favIds.map(id=>F[filmIdxById[id]]).filter(Boolean);
+    const overlap=favIds.filter(id=>myFavIds.includes(id)).length;
+    const union=new Set([...favIds,...myFavIds]).size;
+    const pct=union?Math.round(100*overlap/union):0;
+    const track=favFilms.length?TRACKS.find(t=>t.film_id===favFilms[0].id):null;
+    return{id:p.id,name:p.username,favFilms:favFilms.map(f=>f.t),director:favFilms[0]?favFilms[0].d:'—',music:track?track.title:'—',pct,col:p.avatar_color};
+  });
+}
+
+// ── AUTH ACTIONS ──────────────────────────────────────────────────
+function authMsg(msg,isErr){const el=$('#au-msg');if(el){el.textContent=msg;el.style.color=isErr?'#c0574a':'var(--mute)'}}
+async function doSignUp(){
+  const email=$('#su-email').value.trim(),pass=$('#su-pass').value,uname=$('#su-uname').value.trim();
+  if(!email||!pass||!uname){authMsg('이메일, 유저네임, 비밀번호를 모두 입력해주세요.',true);return}
+  if(pass.length<6){authMsg('비밀번호는 6자 이상이어야 합니다.',true);return}
+  authMsg('가입 처리 중…');
+  const{data,error}=await sb.auth.signUp({email,password:pass,options:{data:{username:uname}}});
+  if(error){authMsg(error.message,true);return}
+  if(data.session){authMsg('가입 완료! 이동합니다…');go('my')}
+  else authMsg('확인 이메일을 보냈습니다. 메일함을 확인한 뒤 로그인해주세요.');
+}
+async function doLogIn(){
+  const email=$('#li-email').value.trim(),pass=$('#li-pass').value;
+  if(!email||!pass){authMsg('이메일과 비밀번호를 입력해주세요.',true);return}
+  authMsg('로그인 중…');
+  const{data,error}=await sb.auth.signInWithPassword({email,password:pass});
+  if(error){authMsg(error.message,true);return}
+  authMsg('로그인 완료! 이동합니다…');go('my');
+}
+async function doLogOut(){await sb.auth.signOut();go('home')}
+function setAuthTab(t){authTab=t;render()}
+
+// ── WRITE ACTIONS ────────────────────────────────────────────────
+async function tg(kind,sceneId){
+  if(!requireAuth())return;
+  const set=kind==='like'?liked:saved,table=kind==='like'?'scene_likes':'scene_saves',allArr=kind==='like'?LIKES_ALL:SAVES_ALL;
+  const scene=S.find(s=>s.id===sceneId);
+  if(set.has(sceneId)){
+    set.delete(sceneId);if(kind==='like')scene.l=Math.max(0,scene.l-1);else scene.saveCount=Math.max(0,scene.saveCount-1);
+    const idx=allArr.findIndex(x=>x.scene_id===sceneId&&x.user_id===currentUser.id);if(idx>-1)allArr.splice(idx,1);
+    render();
+    const{error}=await sb.from(table).delete().match({scene_id:sceneId,user_id:currentUser.id});
+    if(error)console.error(error);
+  }else{
+    set.add(sceneId);if(kind==='like')scene.l++;else scene.saveCount++;
+    allArr.push({scene_id:sceneId,user_id:currentUser.id});
+    render();
+    const{error}=await sb.from(table).insert({scene_id:sceneId,user_id:currentUser.id});
+    if(error)console.error(error);
+  }
+}
+async function toggleFollow(personId){
+  if(!requireAuth())return;
+  if(following.has(personId)){
+    following.delete(personId);render();
+    await sb.from('follows').delete().match({follower_id:currentUser.id,followee_id:personId});
+  }else{
+    following.add(personId);render();
+    await sb.from('follows').insert({follower_id:currentUser.id,followee_id:personId});
+  }
+}
+async function reserve(){
+  if(!requireAuth())return;
+  if(!pick)return;
+  const seatId=pick;
+  const{data,error}=await sb.from('reservations').insert({club_id:CLUB.id,seat_id:seatId,user_id:currentUser.id}).select().single();
+  if(error){alert('이미 예약되었거나 오류가 발생했습니다: '+error.message);return}
+  RESV_ALL.push(data);
+  const seat=SEATS.find(s=>s.id===seatId);
+  ticket={seatLabel:seat.seat_label,code:data.ticket_code};
+  pick=null;render();
+}
+
+// ── RENDER HELPERS ───────────────────────────────────────────────
+const still=(f,cls='')=>`<div class="still ${cls}" style="--c:${F[f].col};--g:${F[f].gl};--x:${F[f].x};--y:${F[f].y2}"><i></i><i></i></div>`;
+const scene=s=>`<div class="card fade" onclick="openScene(${S.indexOf(s)})">${still(s.f)}<div class="m">SCENE #0${s.n} · ${F[s.f].t} · ${s.ts}</div><div class="q">“${s.q}”</div><div>${s.tags.map(t=>`<span class="tag">#${t}</span>`).join('')}</div><div class="act"><span class="${liked.has(s.id)?'on':''}" onclick="event.stopPropagation();tg('like','${s.id}')">LIKE ${s.l}</span><span>COMMENT ${(COMMENTS[s.id]||[]).length}</span><span class="${saved.has(s.id)?'on':''}" onclick="event.stopPropagation();tg('save','${s.id}')">SAVE</span></div></div>`;
+const filmCard=i=>`<div class="card fade" onclick="film=${i};go('film')">${still(i)}<div class="cap">${F[i].t}</div><div class="m">${F[i].t}<br>${F[i].d} · ${F[i].y} · ${F[i].c} · ${F[i].g}<br>${F[i].n} scenes shared</div></div>`;
+const flow=()=>`<div class="flow d">${['FILM','SCENE','MUSIC','PEOPLE','MEET'].map(x=>`<b>${x}</b>`).join('<em>→</em>')}</div>`;
+
+function view(r){
+if(bootError)return`<div class="boot"><div class="sub">CONNECTION ERROR</div><p class="err">Supabase 연결에 실패했습니다.<br>${bootError}</p></div>`;
+if(r=='auth')return`<section class="auth-wrap"><div class="sub">${authTab=='signup'?'JOIN':'WELCOME BACK'}</div><h2 class="d">${authTab=='signup'?'SIGN UP':'LOG IN'}</h2>
+<div class="tabs"><span class="${authTab=='signup'?'on':''}" onclick="setAuthTab('signup')">SIGN UP</span><span class="${authTab=='login'?'on':''}" onclick="setAuthTab('login')">LOG IN</span></div>
+${authTab=='signup'?`<div class="field"><label>USERNAME</label><input id="su-uname" placeholder="yedam"></div><div class="field"><label>EMAIL</label><input id="su-email" type="email" placeholder="you@example.com"></div><div class="field"><label>PASSWORD</label><input id="su-pass" type="password" placeholder="6자 이상"></div><button onclick="doSignUp()">CREATE ACCOUNT</button>`
+:`<div class="field"><label>EMAIL</label><input id="li-email" type="email" placeholder="you@example.com"></div><div class="field"><label>PASSWORD</label><input id="li-pass" type="password" placeholder="••••••••" onkeydown="if(event.key=='Enter')doLogIn()"></div><button onclick="doLogIn()">LOG IN</button>`}
+<div id="au-msg"></div></section>`;
+if(!bootError&&!F.length)return`<div class="boot"><div class="sub">LOADING…</div></div>`;
+if(r=='home')return`<div class="hero"><div class="bg" id="bg"></div><div class="strip">${'<div></div>'.repeat(14)}</div><div class="sub">FILM · MUSIC · PEOPLE · COMMUNITY</div><h1 class="d">SCENES<br>THAT REMAIN</h1><p class="t">영화는 끝나도, 이야기는 끝나지 않는다.</p><div style="display:flex;gap:14px;flex-wrap:wrap"><button onclick="go('scenes')">ENTER THE CINEMA</button><button class="ghost" onclick="go('club')">MONTHLY CLUB</button></div></div>
+<section><div class="sub">01 — DISCOVER</div><h2 class="d fade">ONE FILM,<br>MANY STORIES</h2><p class="fade" style="max-width:560px;color:var(--mute)">기존 영화 사이트가 정보와 평점 중심이라면, 우리는 영화를 본 뒤 남는 이야기를 중심에 둡니다.</p>${flow()}
+<div class="g sg">${S.slice(0,3).map(scene).join('')}</div><p style="margin-top:36px"><button onclick="go('scenes')">EXPLORE SCENES</button></p></section>
+<section><div class="sub">02 — CONNECT</div><h2 class="d fade">DISCOVER · SHARE ·<br>CONNECT · MEET</h2><div class="g" style="grid-template-columns:repeat(auto-fill,minmax(210px,1fr))">${[['DISCOVER','영화와 장면을 발견한다','films'],['SHARE','기억하는 장면과 음악을 공유한다','sound'],['CONNECT','비슷한 취향의 사람과 대화한다','people'],['MEET','MONTHLY CLUB에서 실제로 만난다','club']].map((a,i)=>`<div class="person card fade" onclick="go('${a[2]}')"><div class="d" style="font-size:40px;color:var(--mute)">0${i+1}</div><div class="d" style="font-size:32px;margin:6px 0">${a[0]}</div><div class="m">${a[1]}</div></div>`).join('')}</div></section>`;
+if(r=='films')return`<section><div class="sub">FILMS</div><h2 class="d">영화에 대한<br>대화가 시작되는 곳</h2><div class="g" style="margin-top:40px">${F.map((_,i)=>filmCard(i)).join('')}</div></section>`;
+if(r=='film'){const fi=film??0,f=F[fi],ss=S.filter(s=>s.f==fi),tr=TRACKS.filter(t=>t.film_id===f.id),cm=ss.flatMap(s=>(COMMENTS[s.id]||[]).map(c=>({...c,u:(profileById[c.user_id]||{}).username||'?'}))).slice(0,2),rp=P.filter(p=>p.favFilms.includes(f.t)).slice(0,3);
+return`<div class="still" style="--c:${f.col};--g:${f.gl};--x:${f.x};height:62vh"><i></i><i></i></div><section style="padding-top:40px"><div class="sub">${f.d} · ${f.y} · ${f.c} · ${f.g}</div><h2 class="d">${f.t}</h2><p style="max-width:560px;color:var(--mute)">${f.info}</p><div class="row" style="margin-top:50px"><div><div class="sub">HOW PEOPLE REMEMBER IT</div><div class="g sg" style="grid-template-columns:1fr">${ss.length?ss.map(scene).join(''):'<div class="m">아직 공유된 장면이 없습니다.</div>'}</div></div><div><div class="sub">RELATED SOUNDTRACK</div><ul class="pl">${tr.length?tr.map(t=>`<li>${t.title}${t.artist?' — '+t.artist:''}<span>▶</span></li>`).join(''):'<li>등록된 트랙이 없습니다.<span></span></li>'}</ul><div class="sub" style="margin-top:40px">COMMENTS</div>${cm.length?cm.map(c=>`<p class="q">“${c.body}” <span class="m">— ${c.u}</span></p>`).join(''):'<p class="m">아직 댓글이 없습니다.</p>'}<div class="sub" style="margin-top:30px">RELATED PEOPLE</div>${rp.length?rp.map(p=>`<span class="chip" onclick="go('people')">@${p.name}</span>`).join(''):'<div class="m">—</div>'}</div></div></section>`}
+if(r=='scenes')return`<section><div class="sub">SCENES — MAIN ARCHIVE</div><h2 class="d">MEMORY<br>ARCHIVE</h2><p style="margin-bottom:34px"><button onclick="requireAuth()&&alert('업로드 폼은 다음 버전에서 제공됩니다.')">+ CREATE SCENE</button></p><div class="g sg">${S.map(scene).join('')}</div></section>`;
+if(r=='sound'){const itml=F.find(f=>f.t.includes('In the Mood for Love'));const pl=itml?TRACKS.filter(t=>t.film_id===itml.id):[];const moods=[...new Set(PLAYLISTS.map(p=>p.mood_tag).filter(Boolean))];
+return`<section><div class="sub">SOUNDTRACK</div><h2 class="d">FROM FILM<br>TO MUSIC</h2><div class="row"><div><div class="sub">${itml?itml.t.toUpperCase():'FEATURED'} — PLAYLIST</div><ul class="pl">${pl.map(t=>`<li>${t.title}${t.artist?' — '+t.artist:''}<span>▶</span></li>`).join('')||'<li>트랙 없음<span></span></li>'}</ul><p style="margin-top:26px"><button onclick="requireAuth()&&alert('플레이리스트 생성 폼은 다음 버전에서 제공됩니다.')">CREATE PLAYLIST</button></p></div><div><div class="sub">BY MOOD & MOMENT</div>${(moods.length?moods:['비 오는 날 보고 싶은 영화','새벽에 혼자 보고 싶은 영화']).map(x=>`<span class="chip">${x}</span>`).join('')}</div></div></section>`}
+if(r=='people')return`<section><div class="sub">PEOPLE</div><h2 class="d">SIMILAR<br>TASTE</h2><div class="g" style="margin-top:40px;grid-template-columns:repeat(auto-fill,minmax(270px,1fr))">${P.map(p=>`<div class="person fade"><div class="av" style="--c:${p.col}"></div><div class="d" style="font-size:30px">@${p.name}</div><div class="m">Favorite Films<br><span style="color:var(--ink)">${p.favFilms.join(' · ')||'—'}</span></div><div class="m">Director · <span style="color:var(--ink)">${p.director}</span></div><div class="m">Music · <span style="color:var(--ink)">${p.music}</span></div><div class="bar"><i style="width:${p.pct}%"></i></div><div class="m">${currentUser?`Your film taste overlaps ${p.pct}%`:'Log in to see taste overlap'}</div><p style="margin-top:14px"><button onclick="toggleFollow('${p.id}')">${following.has(p.id)?'FOLLOWING':'FOLLOW'}</button></p></div>`).join('')}</div></section>`;
+if(r=='club'){if(!CLUB)return`<section><div class="sub">MONTHLY CLUB</div><h2 class="d">예정된 모임이 없습니다</h2></section>`;
+const reservedIds=new Set(RESV_ALL.map(r=>r.seat_id));
+return`<section><div class="sub">MONTHLY CLUB #0${CLUB.club_number}</div><h1 class="d" style="font-size:clamp(50px,9vw,130px)">${CLUB.title}</h1><p class="sub" style="margin-top:24px">${CLUB.event_date} · ${CLUB.event_time} · ${RESV_ALL.length}/${CLUB.capacity} PEOPLE</p><div class="row"><div><div class="sub">PROGRAM</div><ul class="pl">${PROGRAM.map(p=>`<li>${p.item_time}<span>${p.activity}</span></li>`).join('')}</ul><p class="m" style="margin-top:18px">예약 ${RESV_ALL.length+(pick?1:0)} / ${CLUB.capacity} · 남은 좌석 ${CLUB.capacity-RESV_ALL.length-(pick?1:0)}</p></div>
+<div>${!currentUser?`<p class="m">좌석을 예약하려면 <span style="color:var(--ink);cursor:pointer;text-decoration:underline" onclick="go('auth')">로그인</span>이 필요합니다.</p>`:''}${ticket?`<div class="ticket"><div class="m" style="color:#555">SCENES THAT REMAIN</div><div class="d" style="font-size:34px;margin-top:8px">MONTHLY CLUB #0${CLUB.club_number}<br>${CLUB.title}</div><hr><div>${CLUB.event_date}<br><b style="font-weight:500">${CLUB.event_time}</b></div><div class="d" style="font-size:54px;margin-top:10px">SEAT ${ticket.seatLabel}</div><hr><div class="m" style="color:#555">${(currentUser||{}).username||''} · ${ticket.code}</div></div><p class="m" style="margin-top:14px">MY PAGE → MY TICKETS에서 다시 확인할 수 있어요.</p>`:`<div class="sub">CHOOSE YOUR SEAT</div><div class="screen"></div><div class="m">SCREEN</div><div class="seats">${SEATS.map(se=>`<div class="seat ${reservedIds.has(se.id)?'x':''} ${pick==se.id?'sel':''}" onclick="${reservedIds.has(se.id)?'':`pick=pick=='${se.id}'?null:'${se.id}';render()`}">${se.seat_label}</div>`).join('')}</div><button ${pick?'':'disabled'} onclick="reserve()">RESERVE A SEAT</button>`}</div></div></section>`}
+if(r=='my'){if(!currentUser)return`<section><div class="sub">MY PAGE</div><h2 class="d">LOGIN<br>REQUIRED</h2><p style="color:var(--mute);margin-bottom:24px">MY PAGE는 로그인한 사용자만 볼 수 있습니다.</p><button onclick="go('auth')">SIGN UP / LOG IN</button></section>`;
+const ms=S.filter(s=>s.u===currentUser.username),sv=S.filter(s=>saved.has(s.id));
+return`<section><div class="sub">MY PAGE — @${currentUser.username.toUpperCase()}</div><h2 class="d">MY ARCHIVE</h2>${[['MY SCENES','<div class="g sg">'+(ms.map(scene).join('')||'<div class="m">아직 업로드한 장면이 없습니다.</div>')+'</div>'],['SAVED','<div class="g sg">'+(sv.map(scene).join('')||'<div class="m">저장한 장면이 없습니다.</div>')+'</div>'],['MY TICKETS',ticket&&CLUB?`<div class="m">MONTHLY CLUB #0${CLUB.club_number} · ${CLUB.event_date} · SEAT ${ticket.seatLabel}</div>`:'<div class="m">예약한 모임이 없습니다.</div>']].map(a=>`<div class="sub" style="margin-top:50px">${a[0]}</div>${a[1]}`).join('')}<p style="margin-top:50px"><button class="ghost" onclick="doLogOut()">LOG OUT</button></p></section>`}
+if(r=='search'){const q=$('#sr').value.trim().toLowerCase(),h=(...a)=>a.join(' ').toLowerCase().includes(q);
+const fi=F.map((f,i)=>i).filter(i=>h(F[i].t,F[i].d)),sc=S.filter(s=>h(F[s.f].t,F[s.f].d,s.tags.join(' '),s.q)),pe=P.filter(p=>h(p.name,p.director,p.favFilms.join(' '))),so=q?TRACKS.filter(t=>h(t.title,t.artist||'')):[];
+return`<section><div class="sub">SEARCH</div><h2 class="d">“${q||'ALL'}”</h2><div class="sub">FILMS</div><div class="g">${fi.map(filmCard).join('')||'—'}</div><div class="sub" style="margin-top:40px">SCENES</div><div class="g sg">${sc.map(scene).join('')||'—'}</div><div class="sub" style="margin-top:40px">PEOPLE</div>${pe.map(p=>`<span class="chip" onclick="go('people')">@${p.name}</span>`).join('')||'—'}<div class="sub" style="margin-top:40px">SOUNDTRACK</div>${so.map(t=>`<div class="m">${t.title}${t.artist?' — '+t.artist:''}</div>`).join('')||'—'}</section>`}
+}
+
+function render(){
+  app.innerHTML=view(cur);
+  document.querySelectorAll('nav li').forEach(l=>l.classList.toggle('on',l.dataset.r==cur));
+  who.textContent=currentUser?`@${currentUser.username} · LOG OUT`:'SIGN UP / LOG IN';
+  who.onclick=currentUser?doLogOut:()=>go('auth');
+  obs();
+}
+function go(r){cur=r;ul.classList.remove('o');ov.classList.remove('on');render();scrollTo(0,0)}
+function obs(){const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');o.unobserve(x.target)}}),{threshold:.1});document.querySelectorAll('.fade').forEach(el=>o.observe(el))}
+function openScene(i){const s=S[i],f=F[s.f],cm=(COMMENTS[s.id]||[]).map(c=>({...c,u:(profileById[c.user_id]||{}).username||'?'}));
+ov.innerHTML=`<button onclick="ov.classList.remove('on')">CLOSE ✕</button><div class="still" style="--c:${f.col};--g:${f.gl};--x:${f.x};height:60vh;margin-top:20px"><i></i><i></i></div><div class="row"><div><div class="sub">MOVIE</div><div class="d" style="font-size:40px">${f.t}</div><div class="sub" style="margin-top:20px">TIMESTAMP</div>${s.ts}<div class="sub" style="margin-top:20px">MEMORY</div><p class="q">“${s.q}”</p><div>${s.tags.map(t=>`<span class="tag">#${t}</span>`).join('')}</div><div class="m" style="margin-top:20px">SCENE #0${s.n} · @${s.u}</div></div><div><div class="sub">COMMENTS</div>${cm.length?cm.map(c=>`<p class="q">“${c.body}” <span class="m">— ${c.u}</span></p>`).join(''):'<p class="m">아직 댓글이 없습니다.</p>'}<div class="sub" style="margin-top:30px">MORE SCENES LIKE THIS</div>${S.filter((_,j)=>j!=i).slice(0,3).map(x=>`<span class="chip" onclick="openScene(${S.indexOf(x)})">#0${x.n} ${F[x.f].t}</span>`).join('')}</div></div>`;ov.classList.add('on')}
+addEventListener('scroll',()=>$('#nav').classList.toggle('s',scrollY>60));
+addEventListener('mousemove',e=>{const b=$('#bg');if(b)b.style.transform=`translate(${(e.clientX/innerWidth-.5)*-30}px,${(e.clientY/innerHeight-.5)*-20}px)`});
+boot();
+</script></body></html>
